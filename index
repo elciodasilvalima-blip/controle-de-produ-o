@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Produção | Gestão de Fluxo</title>
+    <style>
+        :root {
+            --bg-canvas: #f4f6f9;
+            --primary-dark: #2c3e50;
+            --accent-blue: #3498db;
+            --status-wait: #f1c40f;
+            --status-run: #3498db;
+            --status-done: #27ae60;
+            --status-delay: #e74c3c;
+            --text-dark: #333;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+
+        body { background-color: var(--bg-canvas); color: var(--text-dark); display: flex; min-height: 100vh; }
+
+        /* Barra Lateral */
+        aside {
+            width: 240px;
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding: 20px;
+            position: fixed;
+            height: 100%;
+        }
+
+        aside h2 { font-size: 1.2rem; margin-bottom: 30px; border-left: 4px solid var(--accent-blue); padding-left: 10px; }
+
+        .menu-item {
+            padding: 12px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: 0.2s;
+        }
+
+        .menu-item:hover { background: rgba(255,255,255,0.1); }
+        .menu-item.active { background: var(--accent-blue); }
+
+        /* Área Principal */
+        main { margin-left: 240px; flex: 1; padding: 30px; }
+
+        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+
+        /* Indicadores de Meta */
+        .metrics { display: flex; gap: 20px; margin-bottom: 30px; }
+        .metric-card {
+            background: var(--white);
+            flex: 1;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--accent-blue);
+        }
+        .metric-card small { color: #888; text-transform: uppercase; font-size: 0.7rem; font-weight: bold; }
+        .metric-card h3 { font-size: 1.8rem; margin-top: 5px; }
+
+        /* Painel de Etapas */
+        .production-pipeline { display: flex; gap: 20px; align-items: flex-start; }
+        
+        .step-column {
+            background: #dfe6e9;
+            width: 33.33%;
+            border-radius: 10px;
+            padding: 15px;
+            min-height: 500px;
+        }
+
+        .step-header {
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            color: #636e72;
+        }
+
+        /* Cartão de Unidade Produzida */
+        .batch-card {
+            background: var(--white);
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .batch-id { font-weight: bold; font-size: 0.9rem; margin-bottom: 5px; display: block; }
+        .batch-client { font-size: 0.8rem; color: #777; margin-bottom: 10px; }
+
+        .progress-box { margin: 10px 0; }
+        .progress-text { display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 4px; }
+        .progress-bar-bg { background: #eee; height: 10px; border-radius: 5px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; background: var(--status-run); }
+
+        .deadline-tag {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 12px;
+            background: #fff3f3;
+            color: var(--status-delay);
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 900px) {
+            aside { display: none; }
+            main { margin-left: 0; }
+            .production-pipeline { flex-direction: column; }
+            .step-column { width: 100%; min-height: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <aside>
+        <h2>PROD_MANAGER</h2>
+        <div class="menu-item active">Painel de Fluxo</div>
+        <div class="menu-item">Ordens de Serviço</div>
+        <div class="menu-item">Estoque</div>
+        <div class="menu-item">Relatórios</div>
+    </aside>
+
+    <main>
+        <header>
+            <h1>Acompanhamento de Produção</h1>
+            <div><strong>Status:</strong> <span style="color: var(--status-done)">● Sistema Operacional</span></div>
+        </header>
+
+        <section class="metrics">
+            <div class="metric-card">
+                <small>Total em Produção</small>
+                <h3>1.450 <span style="font-size: 1rem; color: #888;">unid.</span></h3>
+            </div>
+            <div class="metric-card" style="border-top-color: var(--status-done);">
+                <small>Concluído Hoje</small>
+                <h3>820 <span style="font-size: 1rem; color: #888;">unid.</span></h3>
+            </div>
+            <div class="metric-card" style="border-top-color: var(--status-delay);">
+                <small>Atrasos Detectados</small>
+                <h3>03 <span style="font-size: 1rem; color: #888;">lotes</span></h3>
+            </div>
+        </section>
+
+        <section class="production-pipeline">
+            
+            <div class="step-column">
+                <div class="step-header">1. PREPARAÇÃO <span>(02)</span></div>
+                
+                <div class="batch-card">
+                    <span class="batch-id">LOTE #4590 - Estruturas Metálicas</span>
+                    <span class="batch-client">Cliente: ConstruTech S.A.</span>
+                    <div class="progress-box">
+                        <div class="progress-text"><span>Progresso</span> <span>15%</span></div>
+                        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 15%; background: var(--status-wait);"></div></div>
+                    </div>
+                    <span class="deadline-tag">Prazo: 24/03 - 16h</span>
+                </div>
+            </div>
+
+            <div class="step-column">
+                <div class="step-header">2. EXECUÇÃO / MONTAGEM <span>(01)</span></div>
+                
+                <div class="batch-card">
+                    <span class="batch-id">LOTE #4588 - Painéis Solares</span>
+                    <span class="batch-client">Cliente: EcoEnergy</span>
+                    <div class="progress-box">
+                        <div class="progress-text"><span>Progresso (450/1000)</span> <span>45%</span></div>
+                        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 45%;"></div></div>
+                    </div>
+                    <span class="deadline-tag" style="background: #e1f5fe; color: var(--accent-blue);">Prazo: 26/03</span>
+                </div>
+            </div>
+
+            <div class="step-column">
+                <div class="step-header">3. QUALIDADE / EXPEDIÇÃO <span>(01)</span></div>
+                
+                <div class="batch-card" style="border-right: 5px solid var(--status-done);">
+                    <span class="batch-id">LOTE #4582 - Filtros Industriais</span>
+                    <span class="batch-client">Cliente: PureWater Ltda.</span>
+                    <div class="progress-box">
+                        <div class="progress-text"><span>Progresso (200/200)</span> <span>100%</span></div>
+                        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 100%; background: var(--status-done);"></div></div>
+                    </div>
+                    <span class="deadline-tag" style="background: #e8f5e9; color: var(--status-done);">Liberado para Envio</span>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+</body>
+</html>
