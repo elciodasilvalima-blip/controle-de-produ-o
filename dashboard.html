@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard</title>
+
+<style>
+body {
+  margin:0;
+  font-family:Arial;
+  background:#0b1220;
+  color:#fff;
+}
+
+.sidebar {
+  width:200px;
+  height:100vh;
+  background:#020617;
+  position:fixed;
+  padding:20px;
+}
+
+.sidebar a {
+  display:block;
+  color:#94a3b8;
+  margin-bottom:15px;
+  text-decoration:none;
+}
+
+.main {
+  margin-left:220px;
+  padding:20px;
+}
+
+.kpis {
+  display:flex;
+  gap:20px;
+}
+
+.kpi {
+  background:#111827;
+  padding:20px;
+  border-radius:10px;
+}
+
+table {
+  width:100%;
+  margin-top:20px;
+  background:#111827;
+  border-collapse:collapse;
+}
+
+th, td {
+  padding:10px;
+}
+
+.progress {
+  background:#1f2937;
+}
+
+.bar {
+  height:10px;
+  background:#22c55e;
+}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+  <h2>MES</h2>
+  <a href="#">Dashboard</a>
+  <a href="cadastro.html">Cadastro</a>
+</div>
+
+<div class="main">
+
+<h1>Painel de Produção</h1>
+
+<div class="kpis">
+  <div class="kpi">Produção: 1820</div>
+  <div class="kpi">OEE: 92%</div>
+  <div class="kpi">Ordens: 14</div>
+</div>
+
+<table>
+<tr>
+<th>Produto</th>
+<th>Progresso</th>
+</tr>
+
+<tr>
+<td>Peça A</td>
+<td>
+  <div class="progress">
+    <div class="bar" style="width:80%"></div>
+  </div>
+</td>
+</tr>
+
+</table>
+
+</div>
+
+</body>
+</html>

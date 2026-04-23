@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+
+<style>
+body {
+  background:#0b1220;
+  font-family:Arial;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+.box {
+  background:#111827;
+  padding:30px;
+  border-radius:10px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+input {
+  padding:10px;
+}
+
+button {
+  padding:10px;
+  background:#22c55e;
+  border:none;
+  color:#fff;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+  <h2 style="color:white;">Login</h2>
+
+  <input type="text" id="user" placeholder="Usuário">
+  <input type="password" id="pass" placeholder="Senha">
+
+  <button onclick="login()">Entrar</button>
+</div>
+
+<script>
+function login(){
+  let u = document.getElementById("user").value;
+  let p = document.getElementById("pass").value;
+
+  if(u === "admin" && p === "123"){
+    window.location = "dashboard.html";
+  } else {
+    alert("Login inválido");
+  }
+}
+</script>
+
+</body>
+</html>
