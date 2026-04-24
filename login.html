@@ -1,64 +1,73 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<title>Login</title>
-
-<style>
-body {
-  background:#0b1220;
-  font-family:Arial;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-}
-
-.box {
-  background:#111827;
-  padding:30px;
-  border-radius:10px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-
-input {
-  padding:10px;
-}
-
-button {
-  padding:10px;
-  background:#22c55e;
-  border:none;
-  color:#fff;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forja - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="login.css">
 </head>
+<body class="login-body">
 
-<body>
+    <div class="login-container">
+        <div class="logo" style="justify-content: center; margin-bottom: 40px;">
+            <div class="logo-icon">M</div>
+            Forja <span class="logo-subtitle">PRODUCTION OS</span>
+        </div>
 
-<div class="box">
-  <h2 style="color:white;">Login</h2>
+        <div class="login-header">
+            <h1>Bem-vindo de volta</h1>
+            <p>Entre para acompanhar sua produção em tempo real.</p>
+        </div>
 
-  <input type="text" id="user" placeholder="Usuário">
-  <input type="password" id="pass" placeholder="Senha">
+        <form class="login-form">
+            <div class="input-group">
+                <label for="email">E-mail</label>
+                <div class="input-wrapper">
+                    <span class="icon">✉</span>
+                    <input type="email" id="email" placeholder="voce@empresa.com">
+                </div>
+            </div>
 
-  <button onclick="login()">Entrar</button>
-</div>
+            <div class="input-group">
+                <label for="password">Senha</label>
+                <div class="input-wrapper">
+                    <span class="icon">🔒</span>
+                    <input type="password" id="password" placeholder="••••••••">
+                </div>
+            </div>
 
-<script>
-function login(){
-  let u = document.getElementById("user").value;
-  let p = document.getElementById("pass").value;
+            <div class="form-options">
+                <label class="checkbox-container">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                    Manter conectado
+                </label>
+                <a href="#" class="forgot-password">Esqueceu a senha?</a>
+            </div>
 
-  if(u === "admin" && p === "123"){
-    window.location = "dashboard.html";
-  } else {
-    alert("Login inválido");
-  }
-}
-</script>
+            <button type="submit" class="btn-entrar">
+                Entrar <span>→</span>
+            </button>
+        </form>
+
+        <div class="divider">
+            <span>ou</span>
+        </div>
+
+        <button class="btn-google">
+            <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="Google" width="18">
+            Continuar com Google
+        </button>
+
+        <p class="signup-text">
+            Ainda não tem conta? <a href="cadastro.html">Criar conta</a>
+        </p>
+
+        <footer class="login-footer">
+            © 2026 Forja Production OS
+        </footer>
+    </div>
 
 </body>
 </html>

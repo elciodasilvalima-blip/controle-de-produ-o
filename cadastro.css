@@ -1,0 +1,112 @@
+/* PADRÃO GLOBAL - Garante que o fundo seja sempre escuro */
+:root {
+    --bg-color: #02080a;
+    --card-bg: #0a1114;
+    --accent-teal: #00f2ea;
+    --text-main: #ffffff;
+    --text-muted: #8e999e;
+    --border-color: #1a2428;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+/* ESTILO DO CORPO DA PÁGINA (Login e Cadastro) */
+.login-body {
+    background-color: var(--bg-color) !important; /* Força o fundo escuro */
+    color: var(--text-main);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 420px;
+    padding: 20px;
+}
+
+.login-header h1 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+/* ESTILO DOS FORMULÁRIOS */
+.input-group {
+    margin-bottom: 18px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper .icon {
+    position: absolute;
+    left: 15px;
+    z-index: 1;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 14px 14px 14px 45px; /* Espaço para o ícone */
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+}
+
+.input-wrapper input:focus {
+    border-color: var(--accent-teal);
+    box-shadow: 0 0 10px rgba(0, 242, 234, 0.1);
+}
+
+/* BOTÃO CIANO */
+.btn-entrar {
+    width: 100%;
+    background-color: var(--accent-teal);
+    color: var(--bg-color);
+    border: none;
+    padding: 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: 0.3s;
+}
+
+.btn-entrar:hover {
+    box-shadow: 0 0 20px rgba(0, 242, 234, 0.4);
+}
+
+/* LINKS E CHECKBOX */
+.checkbox-container {
+    display: flex;
+    gap: 10px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 15px 0;
+}
+
+.signup-text a, .checkbox-container a {
+    color: var(--accent-teal);
+    text-decoration: none;
+    font-weight: 600;
+}

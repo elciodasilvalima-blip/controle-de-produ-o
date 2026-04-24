@@ -1,106 +1,133 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<title>Dashboard</title>
-
-<style>
-body {
-  margin:0;
-  font-family:Arial;
-  background:#0b1220;
-  color:#fff;
-}
-
-.sidebar {
-  width:200px;
-  height:100vh;
-  background:#020617;
-  position:fixed;
-  padding:20px;
-}
-
-.sidebar a {
-  display:block;
-  color:#94a3b8;
-  margin-bottom:15px;
-  text-decoration:none;
-}
-
-.main {
-  margin-left:220px;
-  padding:20px;
-}
-
-.kpis {
-  display:flex;
-  gap:20px;
-}
-
-.kpi {
-  background:#111827;
-  padding:20px;
-  border-radius:10px;
-}
-
-table {
-  width:100%;
-  margin-top:20px;
-  background:#111827;
-  border-collapse:collapse;
-}
-
-th, td {
-  padding:10px;
-}
-
-.progress {
-  background:#1f2937;
-}
-
-.bar {
-  height:10px;
-  background:#22c55e;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forja - Visão Geral</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
 </head>
+<body class="dashboard-body">
 
-<body>
+    <aside class="sidebar">
+        <div class="logo-area">
+            <div class="logo-box">F</div>
+            <div>
+                <span class="brand-name">Forja</span>
+                <span class="brand-tag">PRODUCTION OS</span>
+            </div>
+        </div>
 
-<div class="sidebar">
-  <h2>MES</h2>
-  <a href="#">Dashboard</a>
-  <a href="cadastro.html">Cadastro</a>
-</div>
+        <nav class="nav-menu">
+            <p class="nav-label">OPERAÇÃO</p>
+            <a href="#" class="nav-link active">📊 Visão geral</a>
+            <a href="#" class="nav-link">📦 Projetos</a>
+            <a href="#" class="nav-link">📅 Cronograma</a>
+            <a href="#" class="nav-link">👥 Equipe</a>
+            <a href="#" class="nav-link">📈 Relatórios</a>
+        </nav>
 
-<div class="main">
+        <div class="sidebar-footer">
+            <div class="user-pill">
+                <div class="avatar">MC</div>
+                <div class="user-text">
+                    <p class="name">Marina Costa</p>
+                    <p class="role">Gestora de Produção</p>
+                </div>
+            </div>
+            <div class="footer-links">
+                <a href="#">⚙ Config</a>
+                <a href="#">↳ Sair</a>
+            </div>
+        </div>
+    </aside>
 
-<h1>Painel de Produção</h1>
+    <main class="main-content">
+        <header class="main-header">
+            <div class="header-titles">
+                <p class="breadcrumb">PAINEL</p>
+                <h1>Visão geral</h1>
+                <p class="header-desc">Acompanhe a saúde da operação em tempo real.</p>
+            </div>
+            <button class="btn-primary">+ Novo projeto</button>
+        </header>
 
-<div class="kpis">
-  <div class="kpi">Produção: 1820</div>
-  <div class="kpi">OEE: 92%</div>
-  <div class="kpi">Ordens: 14</div>
-</div>
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon blue">💎</div>
+                <span class="stat-value">3</span>
+                <span class="stat-title">Projetos ativos</span>
+                <span class="stat-diff positive">+2 este mês</span>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon green">✔️</div>
+                <span class="stat-value">8</span>
+                <span class="stat-title">Concluídos no mês</span>
+                <span class="stat-diff positive">+18% vs. anterior</span>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📊</div>
+                <span class="stat-value">10.300</span>
+                <span class="stat-title">Unidades produzidas</span>
+                <span class="stat-diff">Últimos 30 dias</span>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon yellow">🕒</div>
+                <span class="stat-value">87%</span>
+                <span class="stat-title">Entrega no prazo</span>
+                <span class="stat-diff positive">+4pp vs. trimestre</span>
+            </div>
+        </section>
 
-<table>
-<tr>
-<th>Produto</th>
-<th>Progresso</th>
-</tr>
+        <div class="content-row">
+            <section class="projects-list">
+                <div class="section-top">
+                    <h3>Projetos em destaque</h3>
+                    <a href="#" class="link-teal">Ver todos ↗</a>
+                </div>
 
-<tr>
-<td>Peça A</td>
-<td>
-  <div class="progress">
-    <div class="bar" style="width:80%"></div>
-  </div>
-</td>
-</tr>
+                <div class="project-card">
+                    <div class="p-header">
+                        <span class="p-id">PRD-2401</span>
+                        <span class="badge badge-teal">Em andamento</span>
+                    </div>
+                    <h4>Linha de Cadeiras Ergonômicas X9</h4>
+                    <p class="p-sub">ErgoCorp · Marina Lopes</p>
+                    <div class="p-progress">
+                        <div class="progress-info"><span>68%</span> <span>814 / 1.200</span></div>
+                        <div class="progress-track"><div class="progress-fill" style="width: 68%;"></div></div>
+                    </div>
+                </div>
 
-</table>
+                <div class="project-card">
+                    <div class="p-header">
+                        <span class="p-id">SRV-2402</span>
+                        <span class="badge badge-red">Atrasado</span>
+                    </div>
+                    <h4>Implantação ERP — Fase 2</h4>
+                    <p class="p-sub">Indústrias Vértice · Carlos Tavares</p>
+                    <div class="p-progress">
+                        <div class="progress-info"><span>58%</span> <span>14 / 24</span></div>
+                        <div class="progress-track"><div class="progress-fill" style="width: 58%;"></div></div>
+                    </div>
+                </div>
+            </section>
 
-</div>
+            <aside class="alerts-sidebar">
+                <div class="alert-box warning">
+                    <p class="alert-header">⚠️ Atenção necessária</p>
+                    <p class="alert-code">SRV-2402</p>
+                    <p class="alert-name">Implantação ERP — Fase 2</p>
+                    <p class="alert-date">Prazo 14/04/2026</p>
+                </div>
+                <div class="alert-box info">
+                    <p class="info-label">PRODUTIVIDADE DA SEMANA</p>
+                    <p class="info-value">+12,4%</p>
+                    <p class="info-text">vs. semana anterior. A linha 1 está performando 22% acima da meta.</p>
+                </div>
+            </aside>
+        </div>
+    </main>
 
 </body>
 </html>

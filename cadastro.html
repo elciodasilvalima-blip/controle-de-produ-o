@@ -1,52 +1,70 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<title>Cadastro</title>
-
-<style>
-body {
-  background:#0b1220;
-  font-family:Arial;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-}
-
-.box {
-  background:#111827;
-  padding:30px;
-  border-radius:10px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-
-input {
-  padding:10px;
-}
-
-button {
-  padding:10px;
-  background:#22c55e;
-  border:none;
-  color:#fff;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forja - Criar Conta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="cadastro.css">
 </head>
+<body class="login-body">
 
-<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h1>Criar conta</h1>
+            <p>Comece grátis. Sem cartão, sem compromisso.</p>
+        </div>
 
-<div class="box">
-  <h2 style="color:white;">Cadastro de Usuário</h2>
+        <form class="login-form">
+            <div class="input-group">
+                <label for="nome">Nome completo</label>
+                <div class="input-wrapper">
+                    <span class="icon">👤</span>
+                    <input type="text" id="nome" placeholder="Marina Costa">
+                </div>
+            </div>
 
-  <input type="text" placeholder="Nome">
-  <input type="text" placeholder="Usuário">
-  <input type="password" placeholder="Senha">
+            <div class="input-group">
+                <label for="empresa">Empresa</label>
+                <div class="input-wrapper">
+                    <span class="icon">🏢</span>
+                    <input type="text" id="empresa" placeholder="Indústria Vértice">
+                </div>
+            </div>
 
-  <button>Cadastrar</button>
-</div>
+            <div class="input-group">
+                <label for="email">E-mail corporativo</label>
+                <div class="input-wrapper">
+                    <span class="icon">✉</span>
+                    <input type="email" id="email" placeholder="voce@empresa.com">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Senha</label>
+                <div class="input-wrapper">
+                    <span class="icon">🔒</span>
+                    <input type="password" id="password" placeholder="Mínimo 8 caracteres">
+                </div>
+            </div>
+
+            <div class="form-options">
+                <label class="checkbox-container">
+                    <input type="checkbox" required>
+                    <span class="checkmark"></span>
+                    Concordo com os <a href="#" class="inline-link">Termos</a> e a <a href="#" class="inline-link">Política de Privacidade</a>.
+                </label>
+            </div>
+
+            <button type="submit" class="btn-entrar">
+                Criar minha conta <span>→</span>
+            </button>
+        </form>
+
+        <p class="signup-text">
+            Já tem uma conta? <a href="login.html">Entrar</a>
+        </p>
+    </div>
 
 </body>
 </html>
