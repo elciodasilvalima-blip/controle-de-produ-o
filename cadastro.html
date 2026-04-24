@@ -25,14 +25,6 @@
             </div>
 
             <div class="input-group">
-                <label for="empresa">Empresa</label>
-                <div class="input-wrapper">
-                    <span class="icon">🏢</span>
-                    <input type="text" id="empresa" placeholder="Indústria Vértice">
-                </div>
-            </div>
-
-            <div class="input-group">
                 <label for="email">E-mail corporativo</label>
                 <div class="input-wrapper">
                     <span class="icon">✉</span>
@@ -74,15 +66,29 @@
         const email = document.querySelector('#email').value;
         const senha = document.querySelector('#password').value;
 
-        const response = await fetch('http://localhost:3000/api/cadastro', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ nome, email, senha })
-        });
+        console.log('📤 Enviando dados para o servidor...');
 
-        const data = await response.json();
-        alert(data.message);
-        if (response.ok) window.location.href = 'login.html';
+        try {
+            const response = await fetch('http://localhost:3000/api/cadastro', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nome, email, senha })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                console.log('✅ Servidor respondeu com sucesso:', data);
+                alert(data.message);
+                window.location.href = 'login.html';
+            } else {
+                console.error('❌ Servidor retornou erro:', data.message);
+                alert('Erro: ' + data.message);
+            }
+        } catch (error) {
+            console.error('❌ Falha na conexão (CORS ou Servidor desligado):', error);
+            alert('Não foi possível conectar ao servidor. Verifique se o Node.js está rodando.');
+        }
     });
 </script>
 </body>

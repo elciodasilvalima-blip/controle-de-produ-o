@@ -76,17 +76,30 @@
         const email = document.querySelector('input[type="email"]').value;
         const senha = document.querySelector('input[type="password"]').value;
 
-        const response = await fetch('http://localhost:3000/api/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, senha })
-        });
+        console.log('🔐 Tentando logar com:', email);
 
-        const data = await response.json();
-        if (response.ok) {
-            window.location.href = 'dashboard.html'; // Vai para o Dashboard se acertar
-        } else {
-            alert(data.message);
+        try {
+            const response = await fetch('http://localhost:3000/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, senha })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                // SALVA OS DADOS NA MEMÓRIA DO NAVEGADOR
+                localStorage.setItem('usuarioLogado', JSON.stringify(data.user));
+                
+                alert('Bem-vindo, ' + data.user.nome + '!');
+                window.location.href = 'dashboard.html';
+            } else {
+                // Exibe a mensagem de "E-mail ou senha incorretos" vinda do servidor
+                alert(data.message);
+            }
+        } catch (error) {
+            console.error('Erro ao conectar:', error);
+            alert('Servidor fora do ar ou erro na rede.');
         }
     });
 </script>
