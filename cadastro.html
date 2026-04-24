@@ -65,6 +65,25 @@
             Já tem uma conta? <a href="login.html">Entrar</a>
         </p>
     </div>
+<script>
+    const form = document.querySelector('.login-form');
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const nome = document.querySelector('#nome').value;
+        const email = document.querySelector('#email').value;
+        const senha = document.querySelector('#password').value;
 
+        const response = await fetch('http://localhost:3000/api/cadastro', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nome, email, senha })
+        });
+
+        const data = await response.json();
+        alert(data.message);
+        if (response.ok) window.location.href = 'login.html';
+    });
+</script>
 </body>
 </html>
