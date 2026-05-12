@@ -124,3 +124,50 @@ app.listen(PORT, () => {
     console.log(`📡 Banco: shortline.proxy.rlwy.net`);
     console.log(`_______________________________________________\n`);
 });
+// ROTA PARA LISTAR TODOS OS USUÁRIOS
+app.get('/api/usuarios', (req, res) => {
+    const query = "SELECT usuario_id, nome, login FROM tbUsuarios"; // Seleciona os campos do seu DER
+    
+    db.query(query, (err, results) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(results); // Envia a lista para o front-end
+    });
+});
+async function carregarUsuarios() {
+    try {
+        const response = await fetch('http://localhost:3000/api/usuarios');
+        const usuarios = await response.json();
+        
+        const tabela = document.getElementById('lista-usuarios');
+        tabela.innerHTML = ''; // Limpa a tabela antes de carregar
+
+        usuarios.forEach(user => {
+            // Pega as iniciais do nome para o avatar
+            const iniciais = user.nome.split(' ').map(n => n[0]).join('').toUpperCase().substring(0,2);
+
+            tabela.innerHTML += `
+                <tr>
+                    <td>
+                        <div class="user-info">
+                            <div class="avatar">${iniciais}</div>
+                            <span>${user.nome}</span>
+                        </div>
+                    </td>
+                    <td>${user.login}</td>
+                    <td><span class="status-badge">Ativo</span></td>
+                    <td style="text-align:right">
+                        <div class="actions">
+                            <button class="btn-action" onclick="editarUsuario(${user.usuario_id})" title="Editar">✏️</button>
+                            <button class="btn-action" onclick="excluirUsuario(${user.usuario_id})" title="Excluir">🗑️</button>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        });
+    } catch (error) {
+        console.error("Erro ao carregar usuários:", error);
+    }
+}
+
+// Chama a função assim que a página carregar
+window.onload = carregarUsuarios;

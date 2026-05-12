@@ -1,0 +1,230 @@
+/* Definição de Cores e Variáveis */
+:root {
+    --bg-dark: #02080a;
+    --card-bg: #0a1114;
+    --border-color: #1a2428;
+    --teal-neon: #00f2ea;
+    --text-white: #ffffff;
+    --text-muted: #8e999e;
+    --sidebar-width: 260px;
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Inter', sans-serif; 
+}
+
+body { 
+    background-color: var(--bg-dark); 
+    color: var(--text-white); 
+    display: flex; 
+}
+
+/* Barra Lateral (Sidebar) */
+.sidebar {
+    width: var(--sidebar-width);
+    background: var(--card-bg);
+    border-right: 1px solid var(--border-color);
+    height: 100vh;
+    position: fixed;
+    padding: 24px;
+}
+
+.logo-area { 
+    display: flex; 
+    gap: 12px; 
+    align-items: center; 
+    margin-bottom: 40px; 
+}
+
+.logo-box { 
+    background: var(--teal-neon); 
+    color: var(--bg-dark); 
+    padding: 5px 10px; 
+    border-radius: 4px; 
+    font-weight: bold; 
+}
+
+.nav-link { 
+    display: block; 
+    padding: 12px; 
+    color: var(--text-muted); 
+    text-decoration: none; 
+    border-radius: 8px; 
+    margin-bottom: 5px; 
+    transition: 0.3s;
+}
+
+.nav-link:hover {
+    color: var(--text-white);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-link.active { 
+    background: rgba(0, 242, 234, 0.1); 
+    color: var(--teal-neon); 
+    font-weight: 600; 
+}
+
+/* Área de Conteúdo Principal */
+.main-content { 
+    margin-left: var(--sidebar-width); 
+    padding: 40px; 
+    width: 100%; 
+}
+
+.breadcrumb { 
+    color: var(--teal-neon); 
+    font-size: 0.7rem; 
+    letter-spacing: 2px; 
+    margin-bottom: 10px; 
+}
+
+.header-titles h1 { 
+    font-size: 2rem; 
+    margin-bottom: 8px; 
+}
+
+.header-desc { 
+    color: var(--text-muted); 
+    margin-bottom: 30px; 
+}
+
+.btn-primary { 
+    background: var(--teal-neon); 
+    border: none; 
+    padding: 12px 24px; 
+    border-radius: 6px; 
+    font-weight: 700; 
+    cursor: pointer; 
+    margin-bottom: 40px;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    box-shadow: 0 0 15px rgba(0, 242, 234, 0.4);
+}
+
+/* Tabela de Usuários */
+.table-container { 
+    background: var(--card-bg); 
+    border: 1px solid var(--border-color); 
+    border-radius: 12px; 
+    padding: 24px; 
+}
+
+table { 
+    width: 100%; 
+    border-collapse: collapse; 
+}
+
+th { 
+    text-align: left; 
+    color: var(--text-muted); 
+    font-size: 0.75rem; 
+    padding: 15px; 
+    border-bottom: 1px solid var(--border-color);
+    text-transform: uppercase;
+}
+
+td { 
+    padding: 20px 15px; 
+    border-bottom: 1px solid var(--border-color); 
+    font-size: 0.9rem; 
+}
+
+.user-info { 
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+}
+
+.avatar { 
+    width: 35px; 
+    height: 35px; 
+    background: var(--teal-neon); 
+    color: var(--bg-dark); 
+    border-radius: 4px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-weight: bold; 
+}
+
+.status-badge { 
+    background: rgba(0, 242, 234, 0.1); 
+    color: var(--teal-neon); 
+    padding: 4px 12px; 
+    border-radius: 20px; 
+    font-size: 0.75rem;
+}
+
+.actions { 
+    display: flex; 
+    gap: 15px; 
+    justify-content: flex-end;
+}
+
+.btn-action { 
+    background: none; 
+    border: none; 
+    cursor: pointer; 
+    font-size: 1.1rem; 
+    filter: grayscale(1); 
+    transition: 0.2s;
+}
+
+.btn-action:hover { 
+    filter: grayscale(0); 
+    transform: scale(1.2); 
+}
+/* Estilos do Modal */
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 1000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    width: 400px;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    right: 20px; top: 15px;
+    color: var(--text-muted);
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.input-group {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group label {
+    font-size: 0.8rem;
+    color: var(--teal-neon);
+}
+
+.input-group input {
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    padding: 10px;
+    border-radius: 6px;
+    color: white;
+}
