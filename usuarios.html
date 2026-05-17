@@ -6,10 +6,22 @@
     <title>Forja - Gestão de Usuários</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="usuarios.css">
+    <style>
+        /* Estilo para o botão de imprimir e comportamento de impressão */
+        .btn-print {
+            background: #2563eb; color: white; border: none; padding: 12px 24px;
+            border-radius: 6px; font-weight: 700; cursor: pointer; margin-right: 10px;
+        }
+        @media print {
+            .sidebar, .btn-primary, .btn-print, .actions, .breadcrumb, .header-desc { display: none !important; }
+            .main-content { margin: 0; padding: 0; width: 100%; }
+            .user-table { border: 1px solid #000; width: 100%; }
+            body { background: white; color: black; }
+        }
+    </style>
 </head>
 <body class="dashboard-body">
 
-    <!-- BARRA LATERAL -->
     <aside class="sidebar">
         <div class="logo-area">
             <div class="logo-box">F</div>
@@ -21,25 +33,25 @@
         <nav class="nav-menu">
             <p class="nav-label">OPERAÇÃO</p>
             <a href="dashboard.html" class="nav-link">📊 Visão geral</a>
-            <a href="#" class="nav-link active">👥 Usuários</a> <!-- Link Ativo -->
+            <a href="#" class="nav-link active">👥 Usuários</a>
             <a href="#" class="nav-link">📦 Projetos</a>
             <a href="#" class="nav-link">📈 Relatórios</a>
         </nav>
     </aside>
 
-    <!-- CONTEÚDO PRINCIPAL -->
     <main class="main-content">
-        <!-- CABEÇALHO DA PÁGINA -->
         <header class="main-header">
             <div class="header-titles">
                 <p class="breadcrumb">CONFIGURAÇÕES</p>
                 <h1>Gestão de Usuários</h1>
                 <p class="header-desc">Visualize, edite ou remova acessos ao sistema.</p>
             </div>
-            <button class="btn-primary" onclick="abrirModalCadastro()">+ Novo usuário</button>
+            <div class="header-actions">
+                <button class="btn-print" onclick="window.print()">🖨️ Imprimir</button>
+                <button class="btn-primary" onclick="abrirModal()">+ Novo usuário</button>
+            </div>
         </header>
 
-        <!-- TABELA DE USUÁRIOS -->
         <section class="content-row">
             <div class="projects-list">
                 <table class="user-table">
@@ -51,74 +63,85 @@
                             <th style="text-align: right;">Ações</th>
                         </tr>
                     </thead>
-                    <tbody id="lista-usuarios">
-    <!-- O JavaScript vai preencher aqui automaticamente -->
-</tbody>
+                    <tbody id="lista-usuarios"></tbody>
                 </table>
             </div>
         </section>
     </main>
-<!-- Modal de Novo Usuário -->
-<div id="modalUsuario" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="fecharModal()">&times;</span>
-        <h2>Cadastrar Novo Usuário</h2>
-        <form id="formNovoUsuario">
-            <div class="input-group">
-                <label>Nome Completo</label>
-                <input type="text" id="nome" placeholder="Ex: João Silva" required>
-            </div>
-            <div class="input-group">
-                <label>E-mail (Login)</label>
-                <input type="email" id="email" placeholder="email@forja.com" required>
-            </div>
-            <div class="input-group">
-                <label>Senha Provisória</label>
-                <input type="password" id="senha" required>
-            </div>
-            <button type="submit" class="btn-primary" style="width: 100%; margin-top: 20px;">Salvar Usuário</button>
-        </form>
+
+    <div id="modalUsuario" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="fecharModal()">&times;</span>
+            <h2>Cadastrar Novo Usuário</h2>
+            <form id="formNovoUsuario">
+                <div class="input-group"><label>Nome Completo</label><input type="text" id="nome" required></div>
+                <div class="input-group"><label>E-mail (Login)</label><input type="email" id="email" required></div>
+                <div class="input-group"><label>Senha</label><input type="password" id="senha" required></div>
+                <button type="submit" class="btn-primary" style="width: 100%; margin-top: 20px;">Salvar</button>
+            </form>
+        </div>
     </div>
-</div>
 
-<script>
-    const modal = document.getElementById("modalUsuario");
-    const btnNovo = document.querySelector(".btn-primary");
+    <script>
+        const modal = document.getElementById("modalUsuario");
+        function abrirModal() { modal.style.display = "flex"; }
+        function fecharModal() { modal.style.display = "none"; }
 
-    // Abre o modal ao clicar no botão verde
-    btnNovo.onclick = () => modal.style.display = "flex";
+        async function carregarUsuarios() {
+            const res = await fetch('http://localhost:3000/api/usuarios');
+            const usuarios = await res.json();
+            const tabela = document.getElementById('lista-usuarios');
+            tabela.innerHTML = '';
 
-    // Fecha ao clicar no X
-    function fecharModal() { modal.style.display = "none"; }
+            usuarios.forEach(user => {
+                const iniciais = user.nome.split(' ').map(n => n[0]).join('').toUpperCase().substring(0,2);
+                tabela.innerHTML += `
+                    <tr>
+                        <td><div class="user-info"><div class="avatar">${iniciais}</div><span>${user.nome}</span></div></td>
+                        <td>${user.login}</td>
+                        <td><span class="status-badge">Ativo</span></td>
+                        <td style="text-align:right">
+                            <div class="actions">
+                                <button class="btn-action" onclick="editarUsuario(${user.usuario_id}, '${user.nome}', '${user.login}')">✏️</button>
+                                <button class="btn-action" onclick="excluirUsuario(${user.usuario_id})">🗑️</button>
+                            </div>
+                        </td>
+                    </tr>`;
+            });
+        }
 
-    // Fecha ao clicar fora da caixa
-    window.onclick = (event) => { if (event.target == modal) fecharModal(); }
+        async function excluirUsuario(id) {
+            if (confirm("Deseja excluir?")) {
+                await fetch(`http://localhost:3000/api/usuarios/${id}`, { method: 'DELETE' });
+                carregarUsuarios();
+            }
+        }
 
-    // Integração com o Servidor (Back-end)
-    document.getElementById("formNovoUsuario").addEventListener("submit", async (e) => {
-        e.preventDefault();
-        
-        const dados = {
-            nome: document.getElementById("nome").value,
-            email: document.getElementById("email").value,
-            senha: document.getElementById("senha").value
-        };
+        async function editarUsuario(id, nome, login) {
+            const novoNome = prompt("Novo nome:", nome);
+            const novoLogin = prompt("Novo login:", login);
+            if (novoNome && novoLogin) {
+                await fetch(`http://localhost:3000/api/usuarios/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nome: novoNome, login: novoLogin })
+                });
+                carregarUsuarios();
+            }
+        }
 
-        const response = await fetch('http://localhost:3000/api/cadastro', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(dados)
+        document.getElementById("formNovoUsuario").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const dados = { nome: nome.value, email: email.value, senha: senha.value };
+            await fetch('http://localhost:3000/api/cadastro', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dados)
+            });
+            fecharModal(); carregarUsuarios();
         });
 
-        if (response.ok) {
-            alert("Usuário cadastrado no Railway!");
-            fecharModal();
-            location.reload(); // Atualiza a tabela
-        } else {
-            alert("Erro ao salvar usuário.");
-        }
-    });
-</script>
-    <script src="usuarios.js"></script>
+        window.onload = carregarUsuarios;
+    </script>
 </body>
 </html>
